@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>SoftProject</title>
+
+    <!-- Bootstrap, CSS and JS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Cadastro de Projetos</strong>
+    </div>
+    <div class="panel-body">
+        <form th:object="${projeto}" th:action="@{/salvarprojeto}" method="POST" style="margin: 10px;">
+            <div class="form-group">
+                <fieldset>
+                    <div class="form-group row">
+                        <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+                            <div th:each="detailedError : ${#fields.detailedErrors()}">
+                                <span th:text="${detailedError.message}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" class="form-control input-sm" id="id" th:field="*{id}" readOnly="readonly"/>
+                    <div class="form-group row">
+                        <div th:classappend="${#fields.hasErrors('nome')}? 'has-error'">
+                            <label for="nome">Nome do Projeto</label>
+                            <input type="text" class="form-control" id="nome" th:field="*{nome}" name="nome" placeholder="Nome" maxlength="100" required/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div th:classappend="${#fields.hasErrors('dataInicio')}? 'has-error'">
+                            <label for="dataInicio">Data de Inicio</label>
+                            <input type="date" class="form-control" id="dataInicio" th:field="*{dataInicio}" name="dataInicio"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div th:classappend="${#fields.hasErrors('dataPrevisaoFim')}? 'has-error'">
+                            <label for="dataPrevisaoFim">Data de Previsão de Término</label>
+                            <input type="date" class="form-control" id="dataPrevisaoFim" th:field="*{dataPrevisaoFim}" name="dataPrevisaoFim"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div th:classappend="${#fields.hasErrors('dataFim')}? 'has-error'">
+                            <label for="dataFim">Data de Término</label>
+                            <input type="date" class="form-control" id="dataFim" th:field="*{dataFim}" name="dataFim"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div th:classappend="${#fields.hasErrors('descricao')}? 'has-error'">
+                            <label for="descricao">Descrição</label>
+                            <textarea class="form-control" id="descricao" th:field="*{descricao}" name="descricao" maxlength="5000"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div th:classappend="${#fields.hasErrors('status')}? 'has-error'">
+                            <label for="status">Status</label>
+                            <select class="form-control" id="status" th:field="*{status}" name="status" required>
+                                <option value=""></option>
+                                <option th:each="status : ${status}"
+                                        th:value="${status}"
+                                        th:utext="${status.getStatus()}"/>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div th:classappend="${#fields.hasErrors('orcamento')}? 'has-error'">
+                            <label for="orcamento">Orçamento R$</label>
+                            <input type="number" class="form-control" id="orcamento" th:field="*{orcamento}" name="orcamento"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div th:classappend="${#fields.hasErrors('risco')}? 'has-error'">
+                            <label for="risco">Risco</label>
+                            <select class="form-control" id="risco" th:field="*{risco}" name="risco" required>
+                                <option value=""></option>
+                                <option th:each="risco : ${riscos}"
+                                        th:value="${risco}"
+                                        th:utext="${risco.getRisco()}"/>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div th:classappend="${#fields.hasErrors('gerente')}? 'has-error'">
+                            <label for="gerente">Gerente</label>
+                            <select class="form-control" id="gerente" th:field="*{gerente}" name="gerente" required>
+                                <option value=""></option>
+                                <option th:each="gerente : ${gerentes}"
+                                        th:value="${gerente.id}"
+                                        th:utext="${gerente.nome}"/>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-success">Salvar</button>
+                    <a th:href="@{/}" class="btn btn-sm btn-default">Cancelar</a>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

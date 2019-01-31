@@ -1,0 +1,12 @@
+br\com\soft\StartApplication.class
+br\com\soft\repository\ProjetoRepository.class
+br\com\soft\service\ProjetoService.class
+br\com\soft\controller\ProjetoController.class
+br\com\soft\controller\IndexController.class
+br\com\soft\model\Projeto.class
+br\com\soft\extras\Risco.class
+br\com\soft\extras\Status.class
+br\com\soft\model\Pessoa.class
+br\com\soft\service\PessoaService.class
+br\com\soft\controller\PessoaController.class
+br\com\soft\repository\PessoaRepository.class

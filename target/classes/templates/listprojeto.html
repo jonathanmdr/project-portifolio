@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>SoftProject</title>
+
+    <!-- Bootstrap, CSS and JS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Lista de Projetos</strong>
+    </div>
+    <div>
+        <strong style="text-align: center">
+            <span style="text-align: center; color: navy" th:text="${msg}"></span>
+        </strong>
+    </div>
+    <div class="panel-body">
+        <div class="container">
+            <div id="listaDeProjetos">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Data Inicio</th>
+                        <th>Previsão Término</th>
+                        <th>Data Término</th>
+                        <th>Status</th>
+                        <th>Orçamento</th>
+                        <th>Risco</th>
+                        <th>Gerente</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tr th:each="projeto : ${projetos}">
+                        <td> <span th:text="${projeto.nome}"></span> </td>
+                        <td> <span th:text="${#dates.format(projeto.dataInicio, 'dd/MM/yyyy')}"></span> </td>
+                        <td> <span th:text="${#dates.format(projeto.dataPrevisaoFim, 'dd/MM/yyyy')}"></span> </td>
+                        <td> <span th:text="${#dates.format(projeto.dataFim, 'dd/MM/yyyy')}"></span> </td>
+                        <td> <span th:text="${projeto.status.getStatus()}"></span> </td>
+                        <td> <span th:text="${#numbers.formatDecimal(projeto.orcamento, 0, 'COMMA', 2, 'POINT')}"></span> </td>
+                        <td> <span th:text="${projeto.risco.getRisco()}"></span> </td>
+                        <td> <span th:text="${projeto.gerente.nome}"></span> </td>
+                        <td>
+                            <div class="btn-group pull-right">
+                                <a th:href="@{/editarprojeto/{id}(id=${projeto.id})}" class="btn btn-sm btn-primary">Editar</a>
+                                <a th:href="@{/excluirprojeto/{id}(id=${projeto.id})}" onclick="return confirm('Dejesa realmente excluir?')" class="btn btn-sm btn-danger">Excluir</a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <hr/>
+
+        <div style ="text-align: left; margin-left: 100px;">
+            <a href="cadprojeto" class="btn btn-sm btn-success align-items-start">Cadastro</a>
+            <a href="/" class="btn btn-sm btn-primary align-items-start">Voltar</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
